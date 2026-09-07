@@ -261,6 +261,55 @@ h3 { margin: 0; font-size: 1.13rem; letter-spacing: -0.02em; }
   border-left: 1px solid #d9e6f3;
 }
 
+.product-hero { padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+
+.product-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.42fr);
+  align-items: end;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+.product-tagline {
+  margin: 1.2rem 0 0;
+  color: var(--blue-dark);
+  font-size: clamp(1.22rem, 2.4vw, 1.65rem);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+
+.product-summary {
+  padding: 1.5rem;
+  border: 1px solid #c8dcf3;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.product-summary p:last-child { margin: 0.85rem 0 0; color: var(--muted); }
+.product-mark-large { width: 58px; height: 58px; margin-bottom: 1.35rem; border-radius: 16px; font-size: 1.9rem; }
+.result-card { align-self: center; }
+.result-label { margin: 0 0 1rem; color: var(--blue-dark) !important; font-size: 0.86rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+
+.product-availability { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 2rem; }
+.product-availability .section-heading p:last-child { margin: 1rem 0 0; color: var(--muted); }
+
+.store-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.store-badge {
+  display: grid;
+  min-width: 158px;
+  gap: 0.04rem;
+  padding: 0.7rem 0.95rem;
+  border: 1px solid #c9d6e5;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  opacity: 0.82;
+}
+.store-badge strong { font-size: 0.66rem; font-weight: 700; }
+.store-badge span { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.025em; }
+.store-badge em { color: var(--blue-dark); font-size: 0.7rem; font-style: normal; font-weight: 750; }
+
 .feature-action .status { margin: 0; }
 
 .list { display: grid; gap: 0.7rem; padding: 0; list-style: none; }
@@ -303,6 +352,8 @@ h3 { margin: 0; font-size: 1.13rem; letter-spacing: -0.02em; }
   .feature-card { grid-template-columns: 1fr; gap: 1.25rem; }
   .feature-card .button { width: 100%; }
   .feature-action { width: 100%; padding-left: 0; border-left: 0; }
+  .product-hero-grid, .product-availability { grid-template-columns: 1fr; }
+  .product-summary { max-width: 32rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
