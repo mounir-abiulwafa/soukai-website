@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/r/:slug([a-z0-9_-]{1,50})",
+      "destination": "/r/index.html"
+    },
+    {
+      "source": "/r/:slug([a-z0-9_-]{1,50})/",
+      "destination": "/r/index.html"
+    }
+  ]
+}

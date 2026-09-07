@@ -11,6 +11,7 @@ const trackedPages = [
   'contact/index.html',
   'products/index.html',
   'products/is-this-a-scam/index.html',
+  'download/index.html',
   'scam-checker/index.html',
   'check-scam-message/index.html',
   'is-this-link-safe/index.html',
