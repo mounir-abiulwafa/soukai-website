@@ -66,6 +66,7 @@ test('all public language equivalents have self canonical, reciprocal hreflang, 
       }
       assert.match(html, new RegExp(`hreflang="x-default" href="${base}${pagePath('en', route)}"`), file);
       assert.equal((html.match(/<script src="\/assets\/js\/language\.js" defer><\/script>/g) || []).length, 0, file);
+      assert.equal((html.match(/<details class="language-selector">/g) || []).length, 1, file);
       for (const targetLanguage of languages) {
         assert.match(html, new RegExp(`data-language-path="${pagePath(targetLanguage, route)}" href="${pagePath(targetLanguage, route)}"`), file);
       }
@@ -140,4 +141,17 @@ test('the shared product mark uses the approved authoritative app-icon asset', (
   const appIcon = fs.readFileSync('/Users/moniraboulouafa/Documents/GitHub/is-this-a-scam/mobile/assets/icon.png');
   assert.match(css, /\.product-mark[\s\S]*is-this-a-scam-icon\.png/);
   assert.equal(crypto.createHash('sha256').update(websiteIcon).digest('hex'), crypto.createHash('sha256').update(appIcon).digest('hex'));
+});
+
+test('Arabic brand lockups are directionally isolated and every product hero displays the official app icon', () => {
+  const css = read('assets/css/site.css');
+  assert.match(css, /\.brand \{[\s\S]*direction: ltr;[\s\S]*unicode-bidi: isolate;/);
+  assert.match(css, /\.product-hero \.eyebrow::before[\s\S]*is-this-a-scam-icon\.png/);
+  for (const language of languages) {
+    const html = read(pageFile(language, 'products/is-this-a-scam/'));
+    assert.match(html, /class="hero product-hero"/);
+    assert.match(html, /<p class="eyebrow">/);
+  }
+  const arabicProduct = read(pageFile('ar', 'products/is-this-a-scam/'));
+  assert.match(arabicProduct, /iPhone\u200e و\u200eAndroid\u200e/);
 });
