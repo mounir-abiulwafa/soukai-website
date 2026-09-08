@@ -211,3 +211,12 @@ test('English conversion display headings use polished title capitalization and 
   assert.match(download, /<h1>Check Before You Trust<\/h1>/);
   assert.match(css, /html\[lang="en"\] \.app-hero h1,[\s\S]*text-shadow:/);
 });
+
+test('every public page explicitly uses the intentionally transparent browser-tab favicon', () => {
+  for (const language of languages) {
+    for (const route of routes) {
+      const html = read(pageFile(language, route));
+      assert.equal((html.match(/<link rel="icon" href="\/assets\/images\/favicon-transparent\.svg" type="image\/svg\+xml">/g) || []).length, 1);
+    }
+  }
+});
