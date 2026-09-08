@@ -212,11 +212,14 @@ test('English conversion display headings use polished title capitalization and 
   assert.match(css, /html\[lang="en"\] \.app-hero h1,[\s\S]*text-shadow:/);
 });
 
-test('every public page explicitly uses the intentionally transparent browser-tab favicon', () => {
+test('every public page explicitly uses the approved full-color app favicon', () => {
   for (const language of languages) {
     for (const route of routes) {
       const html = read(pageFile(language, route));
-      assert.equal((html.match(/<link rel="icon" href="\/assets\/images\/favicon-transparent\.svg" type="image\/svg\+xml">/g) || []).length, 1);
+      assert.equal((html.match(/<link rel="icon" href="\/assets\/images\/favicon-32\.png" sizes="32x32" type="image\/png">/g) || []).length, 1);
+      assert.equal((html.match(/<link rel="icon" href="\/assets\/images\/favicon-48\.png" sizes="48x48" type="image\/png">/g) || []).length, 1);
+      assert.equal((html.match(/<link rel="shortcut icon" href="\/favicon\.ico" type="image\/x-icon">/g) || []).length, 1);
+      assert.doesNotMatch(html, /favicon-transparent/);
     }
   }
 });
