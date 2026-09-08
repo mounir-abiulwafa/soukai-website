@@ -31,6 +31,29 @@ test('download script only detects platform for local UI and has no store teleme
   assert.doesNotMatch(source, /location\.(?:assign|replace|href)\s*=/);
 });
 
+function runDownload(language, userAgent) {
+  const note = { textContent: '' };
+  const context = {
+    navigator: { userAgent },
+    document: {
+      documentElement: { lang: language },
+      getElementById: (id) => (id === 'platform-note' ? note : null),
+    },
+  };
+  vm.runInNewContext(read('assets/js/download.js'), context);
+  return note.textContent;
+}
+
+test('download availability messages use the page language and retain platform detection', () => {
+  assert.equal(runDownload('en', 'Mozilla/5.0 (iPhone)'), 'The App Store will be the right option when it is available.');
+  assert.equal(runDownload('ar', 'Mozilla/5.0 (Linux; Android 14)'), 'سيكون Google Play الخيار المناسب عندما يصبح متاحًا.');
+  assert.equal(runDownload('fr', 'Mozilla/5.0'), 'La disponibilité en boutique sera annoncée après approbation.');
+  assert.equal(runDownload('es', 'Mozilla/5.0'), 'La disponibilidad en tiendas se anunciará tras la aprobación.');
+  assert.equal(runDownload('it', 'Mozilla/5.0'), 'La disponibilità negli store sarà annunciata dopo l’approvazione.');
+  assert.equal(runDownload('fr-CA', 'Mozilla/5.0 (iPad)'), 'L’App Store sera la bonne option lorsqu’il sera disponible.');
+  assert.equal(runDownload('de', 'Mozilla/5.0'), 'Store availability will be announced after approval.');
+});
+
 function runCreatorRoute(pathname, language = 'en-US') {
   const calls = [];
   const status = { textContent: 'Opening the availability page.' };
