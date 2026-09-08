@@ -146,12 +146,46 @@ test('the shared product mark uses the approved authoritative app-icon asset', (
 test('Arabic brand lockups are directionally isolated and every product hero displays the official app icon', () => {
   const css = read('assets/css/site.css');
   assert.match(css, /\.brand \{[\s\S]*direction: ltr;[\s\S]*unicode-bidi: isolate;/);
-  assert.match(css, /\.product-hero \.eyebrow::before[\s\S]*is-this-a-scam-icon\.png/);
+  assert.match(css, /\.product-mark[\s\S]*is-this-a-scam-icon\.png/);
   for (const language of languages) {
     const html = read(pageFile(language, 'products/is-this-a-scam/'));
-    assert.match(html, /class="hero product-hero"/);
-    assert.match(html, /<p class="eyebrow">/);
+    assert.match(html, /class="hero app-hero product-conversion-hero"/);
+    assert.match(html, /class="product-mark"/);
   }
-  const arabicProduct = read(pageFile('ar', 'products/is-this-a-scam/'));
-  assert.match(arabicProduct, /iPhone\u200e و\u200eAndroid\u200e/);
+  const arabicDownload = read(pageFile('ar', 'download/'));
+  assert.match(arabicDownload, /iPhone\u200e و\u200eAndroid\u200e/);
+});
+
+test('conversion surfaces keep localized app visuals and safe download calls to action', () => {
+  for (const language of languages) {
+    const prefix = language === 'en' ? '' : `/${language}`;
+    for (const route of ['', 'products/is-this-a-scam/', 'download/']) {
+      const html = read(pageFile(language, route));
+      assert.match(html, /is-this-a-scam-(?:hero|download)\.webp/, `${language}/${route}`);
+      assert.match(html, /width="(?:2400|2752)" height="(?:1792|1536)"/, `${language}/${route}`);
+    }
+    const home = read(pageFile(language, ''));
+    const product = read(pageFile(language, 'products/is-this-a-scam/'));
+    const download = read(pageFile(language, 'download/'));
+    assert.match(home, /is-this-a-scam-workflow\.webp/);
+    assert.match(product, /is-this-a-scam-workflow\.webp/);
+    assert.match(home, new RegExp(`href="${prefix}/download/"`.replace('//', '/')));
+    assert.doesNotMatch(download, /(?:apple\.com|play\.google\.com|data-store=)/i);
+  }
+});
+
+test('conversion copy resolves in every locale without visible placeholder values', () => {
+  const contacts = { en: 'Contact us', ar: 'تواصل معنا', fr: 'Nous contacter', es: 'Contáctanos', it: 'Contattaci' };
+  const proofLabels = { en: 'Clear reasons + recommended next step', ar: 'أسباب واضحة وخطوة تالية مقترحة', fr: 'Raisons claires et prochaine étape recommandée', es: 'Motivos claros y siguiente paso recomendado', it: 'Motivazioni chiare e passo successivo consigliato' };
+  for (const language of languages) {
+    const prefix = language === 'en' ? '' : `/${language}`;
+    const home = read(pageFile(language, ''));
+    assert.match(home, new RegExp(`href="${prefix}/contact/"`.replace('//', '/')));
+    assert.ok(home.includes(contacts[language]));
+    assert.ok(home.includes(proofLabels[language]));
+    for (const route of routes) {
+      const html = read(pageFile(language, route));
+      assert.doesNotMatch(html, /(?:>|")\s*(?:undefined|null|NaN|\[object Object\])\s*(?:<|")/i, `${language}/${route}`);
+    }
+  }
 });

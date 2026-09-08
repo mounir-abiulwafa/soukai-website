@@ -169,6 +169,39 @@ h3 { margin: 0; font-size: 1.13rem; letter-spacing: -0.02em; }
 
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
 
+.app-hero { padding: clamp(3.25rem, 7vw, 6.25rem) 0; }
+.app-hero-grid,
+.download-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.app-hero-copy { min-width: 0; }
+.app-hero-copy .lede { max-width: 590px; }
+.product-visual { display: block; margin: 0; }
+.product-visual img { display: block; width: 100%; height: auto; border: 1px solid #c8dcf3; border-radius: 24px; box-shadow: var(--shadow-lift); }
+.product-visual-hero { max-width: 650px; justify-self: end; }
+.product-visual-workflow { max-width: 760px; }
+.product-visual-download { max-width: 720px; justify-self: end; }
+.benefit-grid { margin-top: 1.25rem; }
+.compact-benefits .card { padding: 1.25rem; }
+.trust-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.35rem; }
+.trust-row span { padding: 0.32rem 0.65rem; border: 1px solid #d2dfed; border-radius: 999px; color: #48617c; font-size: 0.82rem; font-weight: 700; }
+.workflow-grid,
+.proof-grid,
+.download-store { display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr); align-items: center; gap: clamp(1.5rem, 4vw, 4rem); }
+.proof-card { padding: clamp(1.4rem, 3vw, 2.25rem); border: 1px solid #c8dcf3; border-radius: var(--radius); background: linear-gradient(135deg, #fff, #eef6ff); box-shadow: var(--shadow-soft); }
+.proof-card p { margin: 0; color: var(--muted); }
+.proof-result { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem; align-items: center; margin-top: 1.25rem; padding: 1rem; border-radius: 14px; background: var(--surface); }
+.proof-result span { color: var(--muted); font-size: 0.9rem; }
+.proof-result strong { color: #b42318; font-size: 1.15rem; }
+.proof-result em { grid-column: 1 / -1; color: var(--blue-dark); font-size: 0.9rem; font-style: normal; font-weight: 700; }
+.download-hero { padding: clamp(2.8rem, 6vw, 5.5rem) 0; }
+.download-store .store-badges { margin-top: 1rem; }
+.conversion-block { padding-block: clamp(2.75rem, 5vw, 4rem); }
+.conversion-action { display: flex; align-items: center; justify-content: flex-start; }
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -495,6 +528,21 @@ html[lang="ar"] .product-tagline { line-height: 1.5; letter-spacing: 0; }
 html[lang="ar"] .button,
 html[lang="ar"] .status { line-height: 1.5; }
 
+.home-benefits,
+.home-workflow,
+.home-proof,
+.home-company { padding-block: clamp(3rem, 5vw, 4.75rem); }
+
+.download-benefits,
+.download-store-section { padding-block: clamp(2.8rem, 4.5vw, 4.5rem); }
+
+.store-intro {
+  margin: 0 0 0.35rem;
+  color: var(--blue-dark);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
 @media (max-width: 700px) {
   .nav, .footer-inner { width: min(calc(100% - 1.5rem), var(--content)); }
   .nav {
@@ -541,6 +589,16 @@ html[lang="ar"] .status { line-height: 1.5; }
   .feature-action { width: 100%; padding-left: 0; border-left: 0; }
   [dir="rtl"] .feature-action { padding-right: 0; border-right: 0; }
   .product-hero-grid, .product-availability { grid-template-columns: 1fr; }
+  .app-hero-grid,
+  .download-hero-grid,
+  .workflow-grid,
+  .proof-grid,
+  .download-store { grid-template-columns: 1fr; }
+  .app-hero { padding-top: 3rem; }
+  .product-visual-hero,
+  .product-visual-download { max-width: 100%; justify-self: stretch; }
+  .product-visual-workflow { max-width: 100%; }
+  .conversion-action { justify-content: flex-start; }
   .product-summary { max-width: 32rem; }
   .content-grid { grid-template-columns: 1fr; }
   .store-badges { width: 100%; }
