@@ -156,6 +156,17 @@ test('Arabic brand lockups are directionally isolated and every product hero dis
   assert.match(arabicDownload, /iPhone\u200e و\u200eAndroid\u200e/);
 });
 
+test('Arabic contact copy is concise and shared brand lockups use the approved icon', () => {
+  const css = read('assets/css/site.css');
+  const contact = read('ar/contact/index.html');
+  assert.match(css, /\.brand::before[\s\S]*is-this-a-scam-icon\.png/);
+  assert.match(css, /\.footer-inner > div:first-child::before[\s\S]*is-this-a-scam-icon\.png/);
+  assert.doesNotMatch(css, /soukai-shield\.svg/);
+  assert.match(contact, /<p class="eyebrow">SOUKAI<\/p><h1>تواصل معنا\.<\/h1><p class="lede">نرحب بأسئلتك حول Soukai ومنتجاتها\.<\/p>/);
+  assert.match(contact, /<h2>هل لديك سؤال؟<\/h2><p>راسلنا وسنرد عليك عبر البريد الإلكتروني\.<\/p><p><a class="button button-primary" href="mailto:support@getsoukai\.com">راسلنا<\/a><\/p>/);
+  assert.doesNotMatch(contact, /تحقّق قبل أن تثق|تعرّف على هل هذه عملية احتيال؟/);
+});
+
 test('conversion surfaces keep localized app visuals and safe download calls to action', () => {
   for (const language of languages) {
     const prefix = language === 'en' ? '' : `/${language}`;
