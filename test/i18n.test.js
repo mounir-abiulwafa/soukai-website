@@ -187,7 +187,7 @@ test('conversion surfaces keep localized app visuals and safe download calls to 
 
 test('conversion copy resolves in every locale without visible placeholder values', () => {
   const contacts = { en: 'Contact us', ar: 'تواصل معنا', fr: 'Nous contacter', es: 'Contáctanos', it: 'Contattaci' };
-  const proofLabels = { en: 'Clear reasons + recommended next step', ar: 'أسباب واضحة وخطوة تالية مقترحة', fr: 'Raisons claires et prochaine étape recommandée', es: 'Motivos claros y siguiente paso recomendado', it: 'Motivazioni chiare e passo successivo consigliato' };
+  const proofLabels = { en: 'Clear Reasons + Recommended Next Step', ar: 'أسباب واضحة وخطوة تالية مقترحة', fr: 'Raisons claires et prochaine étape recommandée', es: 'Motivos claros y siguiente paso recomendado', it: 'Motivazioni chiare e passo successivo consigliato' };
   for (const language of languages) {
     const prefix = language === 'en' ? '' : `/${language}`;
     const home = read(pageFile(language, ''));
@@ -199,4 +199,15 @@ test('conversion copy resolves in every locale without visible placeholder value
       assert.doesNotMatch(html, /(?:>|")\s*(?:undefined|null|NaN|\[object Object\])\s*(?:<|")/i, `${language}/${route}`);
     }
   }
+});
+
+test('English conversion display headings use polished title capitalization and subtle depth only', () => {
+  const css = read('assets/css/site.css');
+  const home = read('index.html');
+  const product = read('products/is-this-a-scam/index.html');
+  const download = read('download/index.html');
+  assert.match(home, /<h1>Check Before You Trust<\/h1>/);
+  assert.match(product, /<h1>A Second Opinion Before You Click, Reply, or Pay<\/h1>/);
+  assert.match(download, /<h1>Check Before You Trust<\/h1>/);
+  assert.match(css, /html\[lang="en"\] \.app-hero h1,[\s\S]*text-shadow:/);
 });

@@ -444,7 +444,7 @@ h3 { margin: 0; font-size: 1.13rem; letter-spacing: -0.02em; }
 
 .site-footer { border-top: 1px solid var(--line); background: #fff; }
 .footer-inner { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; padding: 2rem 0; color: var(--muted); font-size: 0.92rem; }
-.footer-inner > div:first-child { display: flex; align-items: center; gap: 0.55rem; }
+.footer-inner > div:first-child { display: grid; grid-template-columns: auto auto auto; align-items: center; gap: 0.35rem; direction: ltr; unicode-bidi: isolate; white-space: nowrap; }
 .footer-inner > div:first-child strong,
 .store-badge strong,
 .store-badge span,
@@ -453,6 +453,7 @@ h3 { margin: 0; font-size: 1.13rem; letter-spacing: -0.02em; }
   unicode-bidi: isolate;
 }
 .footer-inner > div:first-child::before { width: 28px; height: 28px; flex: 0 0 auto; border-radius: 8px; background: url("/assets/images/is-this-a-scam-icon.png") center / contain no-repeat; box-shadow: 0 2px 8px rgba(15, 38, 63, 0.14); content: ""; }
+.footer-inner > div:first-child br { display: none; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 1rem; }
 .footer-links a { color: inherit; }
 
@@ -529,6 +530,14 @@ html[lang="ar"] h2 { font-weight: 700; }
 html[lang="ar"] .product-tagline { line-height: 1.5; letter-spacing: 0; }
 html[lang="ar"] .button,
 html[lang="ar"] .status { line-height: 1.5; }
+
+html[lang="en"] .app-hero h1,
+html[lang="en"] .download-hero h1,
+html[lang="en"] .home-workflow h2,
+html[lang="en"] .home-proof h2,
+html[lang="en"] .home-company h2 {
+  text-shadow: 0 1px 1px rgba(15, 38, 63, 0.09), 0 5px 14px rgba(15, 38, 63, 0.045);
+}
 
 .home-benefits,
 .home-workflow,
