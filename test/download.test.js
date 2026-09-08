@@ -31,11 +31,12 @@ test('download script only detects platform for local UI and has no store teleme
   assert.doesNotMatch(source, /location\.(?:assign|replace|href)\s*=/);
 });
 
-function runCreatorRoute(pathname) {
+function runCreatorRoute(pathname, language = 'en-US') {
   const calls = [];
   const status = { textContent: 'Opening the availability page.' };
   const context = {
     URL,
+    navigator: { languages: [language], language },
     window: {
       location: {
         origin: 'https://www.getsoukai.com',
@@ -64,7 +65,7 @@ test('creator routes accept only a bounded lower-case slug and build a fixed dow
 test('creator routing has no open redirect or analytics implementation', () => {
   const source = read('assets/js/creator-route.js');
   assert.ok(source.includes('const CREATOR_PATH = /^\\/r\\/([a-z0-9_-]{1,50})\\/?$/;'));
-  assert.match(source, /new URL\('\/download\/', window\.location\.origin\)/);
+  assert.match(source, /new URL\(`\$\{prefix\}\/download\/`, window\.location\.origin\)/);
   assert.doesNotMatch(source, /fetch\(|marketing_page_view|store_click|localStorage|sessionStorage|document\.cookie|location\.href/);
 });
 
