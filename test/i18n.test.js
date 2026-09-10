@@ -9,6 +9,9 @@ const root = path.resolve(__dirname, '..');
 const routes = ['', 'products/', 'products/is-this-a-scam/', 'download/', 'scam-checker/', 'check-scam-message/', 'is-this-link-safe/', 'guides/', 'guides/delivery-scam-text/', 'guides/fake-bank-message/', 'guides/fake-job-offer/', 'about/', 'contact/', 'privacy/'];
 const languages = ['en', 'ar', 'fr', 'es', 'it'];
 const base = 'https://www.getsoukai.com';
+const appStoreUrl = 'https://apps.apple.com/us/app/is-this-a-scam-ai/id6808956595';
+const googlePlayUrl = 'https://play.google.com/store/apps/details?id=com.soukai.isthisascam';
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const pageFile = (language, route) => path.join(language === 'en' ? '' : language, route, 'index.html');
 const pagePath = (language, route) => language === 'en' ? `/${route}` : `/${language}/${route}`;
@@ -89,7 +92,9 @@ test('localized links, download behavior, privacy exclusion, and product icon re
     }
     const download = read(pageFile(language, 'download/'));
     assert.equal((download.match(/<script src="\/assets\/js\/download\.js" defer><\/script>/g) || []).length, 1);
-    assert.doesNotMatch(download, /(?:apple\.com|play\.google\.com|data-store=)/i);
+    assert.match(download, new RegExp(`href="${escapeRegExp(appStoreUrl)}" data-store="app_store"`));
+    assert.match(download, new RegExp(`href="${escapeRegExp(googlePlayUrl)}" data-store="google_play"`));
+    assert.doesNotMatch(download, /aria-disabled/);
     assert.match(download, /assets\/images\/is-this-a-scam-icon\.png|product-mark/);
   }
 });
@@ -153,7 +158,7 @@ test('Arabic brand lockups are directionally isolated and every product hero dis
     assert.match(html, /class="product-mark"/);
   }
   const arabicDownload = read(pageFile('ar', 'download/'));
-  assert.match(arabicDownload, /iPhone\u200e و\u200eAndroid\u200e/);
+  assert.match(arabicDownload, /متاح على App Store وGoogle Play/);
 });
 
 test('Arabic contact copy is concise and shared brand lockups use the approved icon', () => {
@@ -181,7 +186,8 @@ test('conversion surfaces keep localized app visuals and safe download calls to 
     assert.match(home, /is-this-a-scam-workflow\.webp/);
     assert.match(product, /is-this-a-scam-workflow\.webp/);
     assert.match(home, new RegExp(`href="${prefix}/download/"`.replace('//', '/')));
-    assert.doesNotMatch(download, /(?:apple\.com|play\.google\.com|data-store=)/i);
+    assert.match(download, new RegExp(`href="${escapeRegExp(appStoreUrl)}" data-store="app_store"`));
+    assert.match(download, new RegExp(`href="${escapeRegExp(googlePlayUrl)}" data-store="google_play"`));
   }
 });
 

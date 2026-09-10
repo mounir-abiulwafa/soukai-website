@@ -1,33 +1,33 @@
 (function () {
   'use strict';
 
-  const APP_STORE_URL = null;
-  const GOOGLE_PLAY_URL = null;
+  const APP_STORE_URL = 'https://apps.apple.com/us/app/is-this-a-scam-ai/id6808956595';
+  const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.soukai.isthisascam';
   const AVAILABILITY_MESSAGES = {
     en: {
-      ios: 'The App Store will be the right option when it is available.',
-      android: 'Google Play will be the right option when it is available.',
-      other: 'Store availability will be announced after approval.',
+      ios: 'Available on the App Store.',
+      android: 'Available on Google Play.',
+      other: 'Available on the App Store and Google Play.',
     },
     ar: {
-      ios: 'سيكون App Store الخيار المناسب عندما يصبح متاحًا.',
-      android: 'سيكون Google Play الخيار المناسب عندما يصبح متاحًا.',
-      other: 'سيُعلن توفر المتاجر بعد الموافقة.',
+      ios: 'متاح على App Store.',
+      android: 'متاح على Google Play.',
+      other: 'متاح على App Store وGoogle Play.',
     },
     fr: {
-      ios: 'L’App Store sera la bonne option lorsqu’il sera disponible.',
-      android: 'Google Play sera la bonne option lorsqu’il sera disponible.',
-      other: 'La disponibilité en boutique sera annoncée après approbation.',
+      ios: 'Disponible sur l’App Store.',
+      android: 'Disponible sur Google Play.',
+      other: 'Disponible sur l’App Store et Google Play.',
     },
     es: {
-      ios: 'App Store será la opción adecuada cuando esté disponible.',
-      android: 'Google Play será la opción adecuada cuando esté disponible.',
-      other: 'La disponibilidad en tiendas se anunciará tras la aprobación.',
+      ios: 'Disponible en App Store.',
+      android: 'Disponible en Google Play.',
+      other: 'Disponible en App Store y Google Play.',
     },
     it: {
-      ios: 'App Store sarà l’opzione giusta quando sarà disponibile.',
-      android: 'Google Play sarà l’opzione giusta quando sarà disponibile.',
-      other: 'La disponibilità negli store sarà annunciata dopo l’approvazione.',
+      ios: 'Disponibile su App Store.',
+      android: 'Disponibile su Google Play.',
+      other: 'Disponibile su App Store e Google Play.',
     },
   };
 
@@ -50,9 +50,9 @@
   const platform = getPlatform();
   updateAvailabilityNote(platform);
 
-  // Store URLs intentionally remain null until official approval. Do not add a
-  // redirect or click destination while either marketplace is unavailable.
+  // Store links are rendered in static HTML so visitors deliberately choose a
+  // marketplace. Do not redirect based on detected platform.
   if (APP_STORE_URL || GOOGLE_PLAY_URL) {
-    // Future store-routing logic belongs here after official URLs are approved.
+    // Constants are retained as the single verified source for this page.
   }
 }());

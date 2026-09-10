@@ -378,7 +378,10 @@ h3 { margin: 0; font-size: 1.13rem; letter-spacing: -0.02em; }
   color: var(--ink);
   box-shadow: 0 5px 12px rgba(16, 42, 67, 0.05);
   opacity: 0.9;
+  text-decoration: none;
 }
+.store-badge:hover { border-color: #8abde9; box-shadow: 0 7px 16px rgba(16, 42, 67, 0.1); opacity: 1; }
+.store-badge:focus-visible { outline: 3px solid #1674c5; outline-offset: 3px; opacity: 1; }
 .store-badge strong { font-size: 0.66rem; font-weight: 700; }
 .store-badge span { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.025em; }
 .store-badge em { color: var(--blue-dark); font-size: 0.7rem; font-style: normal; font-weight: 750; }
