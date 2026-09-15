@@ -51,6 +51,11 @@ const guides = [
     title: 'How to Check a Suspicious Link Before You Click | Soukai',
     description: 'Learn how to check a suspicious link before you click, spot phishing URLs and fake login pages, and respond safely if you entered credentials or payment details.',
   },
+  {
+    route: 'guides/scam-screenshot-checker/',
+    title: 'How to Check a Scam Screenshot With AI | Soukai',
+    description: 'Use an AI-assisted scam screenshot checker to review suspicious messages, emails, payment requests, and account alerts before you click, reply, or pay.',
+  },
 ];
 
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -90,4 +95,26 @@ test('QR guide does not claim unsupported dedicated QR decoding', () => {
   const qrGuide = read('guides/qr-code-scam/index.html');
   assert.match(qrGuide, /does not claim dedicated QR-code decoding/i);
   assert.doesNotMatch(qrGuide, /Is This a Scam\? AI (?:can|will) (?:decode|scan) (?:a )?QR/i);
+});
+
+test('screenshot checker describes the supported screenshot workflow without guarantees', () => {
+  const screenshotGuide = read('guides/scam-screenshot-checker/index.html');
+  const visibleFaqs = [
+    'Can AI tell if a screenshot is a scam?',
+    'Can I check a text-message or WhatsApp screenshot?',
+    'Can I check a suspicious email screenshot?',
+    'Is it safe to upload a screenshot?',
+    'What should I do if I already clicked the link?',
+    'Can the app guarantee a screenshot is fraudulent?',
+  ];
+  assert.match(screenshotGuide, /screenshot.*AI-assisted risk assessment/i);
+  assert.match(screenshotGuide, /risk level, reasons, and a recommended next action/i);
+  assert.match(screenshotGuide, /Screenshot analysis is AI-assisted, not a guarantee/i);
+  assert.match(screenshotGuide, /removing information you do not need for the assessment, such as passwords, verification codes, full card numbers/i);
+  assert.match(screenshotGuide, /<source srcset="\/assets\/images\/visuals\/is-this-a-scam-workflow\.webp"/);
+  assert.doesNotMatch(screenshotGuide, /app guarantees (?:that )?a screenshot/i);
+  for (const question of visibleFaqs) {
+    assert.match(screenshotGuide, new RegExp(`<h3>${question.replace(/[?]/g, '\\$&')}</h3>`));
+    assert.match(screenshotGuide, new RegExp(`"name":"${question.replace(/[?]/g, '\\$&')}"`));
+  }
 });
