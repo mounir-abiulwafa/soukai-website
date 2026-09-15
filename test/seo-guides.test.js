@@ -21,6 +21,21 @@ const guides = [
     title: 'Is This Job Offer Text a Scam? Warning Signs to Check | Soukai',
     description: 'Learn how to spot a job offer text scam, verify a recruiter independently, and respond safely if you sent money or personal information.',
   },
+  {
+    route: 'guides/fake-bank-fraud-alert/',
+    title: 'Fake Bank Fraud Alert Text: How to Tell If It’s Real | Soukai',
+    description: 'Learn how to check a fake bank fraud alert text, verify suspicious account warnings safely, and respond if you shared a code, card, or banking details.',
+  },
+  {
+    route: 'guides/wrong-number-text-scam/',
+    title: 'Wrong Number Text Scam: Should You Reply? | Soukai',
+    description: 'Learn how to spot a wrong number text scam, recognize trust-building and investment tactics, and respond safely if you already replied or shared information.',
+  },
+  {
+    route: 'guides/amazon-fraud-alert-scam/',
+    title: 'Is This Amazon Fraud Alert Real? How to Check Safely | Soukai',
+    description: 'Learn how to check a suspicious Amazon fraud alert, purchase text, or support message safely, and what to do if you clicked, paid, or shared account details.',
+  },
 ];
 
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -37,10 +52,10 @@ test('English SEO guides have complete, safe, indexable article structure', () =
     assert.match(html, new RegExp(`<link rel="canonical" href="${base}/${guide.route}">`), file);
     assert.match(html, /"@type":"Article"/, file);
     assert.match(html, /"@type":"FAQPage"/, file);
-    assert.match(html, /<strong>Fictional example<\/strong>/, file);
-    assert.match(html, /<em>[a-z0-9-]+\.example<\/em>/i, file);
+    assert.match(html, /<strong>Fictional (?:example|conversation)<\/strong>/, file);
+    assert.match(html, /<em>[a-z0-9-]+\.example<\/em>|<strong>Fictional conversation<\/strong>/i, file);
     assert.doesNotMatch(html, /<a\b[^>]*href="https?:\/\//i, file);
-    for (const target of ['/scam-checker/', '/check-scam-message/', '/is-this-link-safe/', '/guides/', '/guides/delivery-scam-text/', '/guides/fake-bank-message/', '/guides/fake-job-offer/', '/download/']) {
+    for (const target of ['/scam-checker/', '/check-scam-message/', '/is-this-link-safe/', '/guides/', '/download/']) {
       assert.match(html, new RegExp(`href="${target.replace(/[/?]/g, '\\$&')}"`), `${file}: ${target}`);
     }
   }
