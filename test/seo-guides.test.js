@@ -36,6 +36,21 @@ const guides = [
     title: 'Is This Amazon Fraud Alert Real? How to Check Safely | Soukai',
     description: 'Learn how to check a suspicious Amazon fraud alert, purchase text, or support message safely, and what to do if you clicked, paid, or shared account details.',
   },
+  {
+    route: 'guides/fake-delivery-fee-scam/',
+    title: 'Package Delivery Fee Text: Scam or Real? | Soukai',
+    description: 'Learn how to spot a package delivery fee text scam, verify a delivery independently, and respond safely if you clicked or entered payment or personal details.',
+  },
+  {
+    route: 'guides/qr-code-scam/',
+    title: 'Is This QR Code Safe? How to Spot a QR Code Scam | Soukai',
+    description: 'Learn how to spot a QR code scam or quishing attempt, inspect a destination safely, and respond if you entered login or payment information after scanning.',
+  },
+  {
+    route: 'guides/phishing-link-checker/',
+    title: 'How to Check a Suspicious Link Before You Click | Soukai',
+    description: 'Learn how to check a suspicious link before you click, spot phishing URLs and fake login pages, and respond safely if you entered credentials or payment details.',
+  },
 ];
 
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -69,4 +84,10 @@ test('English-only SEO guides are discoverable without inventing untranslated al
     assert.equal((sitemap.match(new RegExp(`<loc>${url}</loc>`, 'g')) || []).length, 1);
     assert.match(index, new RegExp(`href="/${guide.route}"`));
   }
+});
+
+test('QR guide does not claim unsupported dedicated QR decoding', () => {
+  const qrGuide = read('guides/qr-code-scam/index.html');
+  assert.match(qrGuide, /does not claim dedicated QR-code decoding/i);
+  assert.doesNotMatch(qrGuide, /Is This a Scam\? AI (?:can|will) (?:decode|scan) (?:a )?QR/i);
 });

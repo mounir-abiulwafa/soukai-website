@@ -7,7 +7,7 @@ const crypto = require('node:crypto');
 
 const root = path.resolve(__dirname, '..');
 const routes = ['', 'products/', 'products/is-this-a-scam/', 'download/', 'scam-checker/', 'check-scam-message/', 'is-this-link-safe/', 'guides/', 'guides/delivery-scam-text/', 'guides/fake-bank-message/', 'guides/fake-job-offer/', 'about/', 'contact/', 'privacy/'];
-const englishSeoGuideRoutes = ['guides/usps-text-scam/', 'guides/unpaid-toll-text-scam/', 'guides/job-offer-text-scam/', 'guides/fake-bank-fraud-alert/', 'guides/wrong-number-text-scam/', 'guides/amazon-fraud-alert-scam/'];
+const englishSeoGuideRoutes = ['guides/usps-text-scam/', 'guides/unpaid-toll-text-scam/', 'guides/job-offer-text-scam/', 'guides/fake-bank-fraud-alert/', 'guides/wrong-number-text-scam/', 'guides/amazon-fraud-alert-scam/', 'guides/fake-delivery-fee-scam/', 'guides/qr-code-scam/', 'guides/phishing-link-checker/'];
 const languages = ['en', 'ar', 'fr', 'es', 'it'];
 const base = 'https://www.getsoukai.com';
 const appStoreUrl = 'https://apps.apple.com/us/app/is-this-a-scam-ai/id6808956595';
